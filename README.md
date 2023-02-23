@@ -1,3 +1,3 @@
 # GuidedSearch
 
-##Best First Search
+## Best First Search
