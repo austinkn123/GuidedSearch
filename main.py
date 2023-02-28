@@ -32,23 +32,23 @@ with open("coordinates.txt", "r") as file:
         # add the key-value pair to the dictionary
         coord_dictionary[key] = value
 
-# # take input from user
-# start = input("Enter your starting point: ")
-# for key in coord_dictionary:
-#     if start == key:
-#         print("Starting point is valid")
-#         break
-# else:
-#     sys.exit("Starting point is invalid, run the program again and enter a valid starting point")
+# take input from user
+start = input("Enter your starting point: ")
+for key in coord_dictionary:
+    if start == key:
+        print("Starting point is valid")
+        break
+else:
+    sys.exit("Starting point is invalid, run the program again and enter a valid starting point")
 
-# # take input from user
-# end = input("Enter your ending point: ")
-# for key in coord_dictionary:
-#     if end == key:
-#         print("Ending point is valid")
-#         break
-# else:
-#     sys.exit("Ending point is invalid, run the program again and enter a valid ending point")
+# take input from user
+end = input("Enter your ending point: ")
+for key in coord_dictionary:
+    if end == key:
+        print("Ending point is valid")
+        break
+else:
+    sys.exit("Ending point is invalid, run the program again and enter a valid ending point")
 
 
 officical_adj_dict = {}
@@ -73,41 +73,21 @@ for key, value in officical_adj_dict.items():
     towns = value.split()
     officical_adj_dict[key] = list(set(towns))
 
-
 SUCCESS = True
 FAILURE = False
 State = FAILURE
 
-start = "El_Dorado"
-end = "Kingman"
-
-
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.children = []
-
-    def add_child(self, child_node):
-        self.children.append(child_node)
-
-    def remove_child(self, child_node):
-        self.children.remove(child_node)
-
-    def traverse(self):
-        print(self.value)
-        for child in self.children:
-            child.traverse()
-
-
 def euclideanDistance(x1, y1, x2, y2):
     return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
+# this function checks if the node is the goal state
 def GOALTEST(N):
     if N == end:
         return True
     else:
         return False
 
+# this function adds the adjacent towns to the node
 def AddAdj(NodeTown):
     New_list = list()
     if NodeTown in officical_adj_dict.keys():
@@ -115,10 +95,12 @@ def AddAdj(NodeTown):
 
     return New_list
 
+# this function appends the list from the OPEN list to the CLOSED list
 def APPEND(L1, L2):
     New_list = list(L1)+list(L2)
     return New_list
 
+# this function sorts the OPEN list depending on the euclidean distance
 def SORT(Open, Closed):
     DistanceDictionary = {}
     x1 = 0
@@ -149,7 +131,6 @@ def SORT(Open, Closed):
 
 
 def BestFirstSearch():
-
     OPEN = [start]
     CLOSED = []
     global State
@@ -200,8 +181,6 @@ Beginning = PathSearched[0]
 # # THis is the last element in the list
 End = PathSearched[-1]
 
-# PathSearched.remove(Beginning)
-# PathSearched.remove(End)
 
 OfficialPath = []
 for i in reversed(range(len(PathSearched))):
